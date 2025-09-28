@@ -1,0 +1,7 @@
+# Clangd cache
+.cache/
+
+# Build files
+build/
+*.elf
+*.gba
