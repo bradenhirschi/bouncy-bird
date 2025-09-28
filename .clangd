@@ -1,0 +1,13 @@
+CompileFlags:
+  Remove: [-mthumb-interwork, -mthumb, -mlong-calls, -fno-rtti, -fno-exceptions, -mlibarch=armv4t]
+  Add:
+    - --target=arm-none-eabi
+    - -mcpu=arm7tdmi
+    - -marm
+    - -march=armv4t
+    - -I/opt/devkitpro/devkitARM/arm-none-eabi/include/c++/15.1.0
+    - -I/opt/devkitpro/devkitARM/arm-none-eabi/include/c++/15.1.0/arm-none-eabi
+    - -I/opt/devkitpro/devkitARM/arm-none-eabi/include/c++/15.1.0/backward
+    - -I/opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.1.0/include
+    - -I/opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.1.0/include-fixed
+    - -I/opt/devkitpro/devkitARM/arm-none-eabi/include
