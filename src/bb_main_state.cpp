@@ -1,4 +1,6 @@
+#include "bb_constants.h"
 #include "bb_game_state.h"
+#include "bn_keypad.h"
 #include "bn_random.h"
 #include "bn_sprite_font.h"
 #include "bn_sprite_items_common_variable_8x16_font.h"
@@ -9,13 +11,14 @@
 #include "bb_main_state.h"
 #include "bb_pipe.h"
 #include "bb_player.h"
+#include "bn_string.h"
 #include "bn_string_view.h"
 
 namespace bb {
 
 MainState::MainState() {
     // Set up player
-    bn::sprite_ptr player_sprite = bn::sprite_items::player_sprite.create_sprite(0, 0);
+    bn::sprite_ptr player_sprite = bn::sprite_items::player_sprite.create_sprite(-40, 0);
     _player = bb::Player(player_sprite);
 }
 
@@ -43,28 +46,37 @@ GameState *MainState::update() {
         for (auto &pipe : _pipes) {
             pipe.update();
 
+            if (pipe._active && pipe._sprite->x() == -40) {
+                _points++;
+            }
+
             if (pipe._active && _player->collides_with_pipe(pipe)) {
-                pipe._active = false;
-                pipe._sprite.reset();
                 _game_over = true;
+                display_game_over_ui();
             }
         }
 
         // Update player
         _player->update_position();
     } else {
-        display_game_over_ui();
+        if (bn::keypad::start_pressed()) {
+            return new MainState();
+        }
     }
 
     return nullptr;
 }
 
 void MainState::display_game_over_ui() {
-    bn::string_view text = bn::string_view("Game Over");
+    bn::string msg = bn::string<32>("Game Over: ");
+    msg.append(bn::to_string<10>(_points));
+    msg.append(" Points");
+
+    bn::string_view text = bn::string_view(msg);
 
     _font = bn::sprite_font(bn::sprite_items::common_variable_8x16_font);
     _text_generator = bn::sprite_text_generator(_font.value());
-    _game_over_text_sprite = _text_generator->generate<32>(0, 0, text);
+    _game_over_text_sprite = _text_generator->generate<32>(ScreenLeftX, 0, text);
 }
 
 } // namespace bb

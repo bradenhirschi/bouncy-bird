@@ -32,6 +32,7 @@ class MainState : public GameState {
     bn::random _random = bn::random();
 
     // Game logic
+    int _points = 0;
     bool _game_over = false;
 
     // Text
