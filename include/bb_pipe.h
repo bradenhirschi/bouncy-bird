@@ -11,7 +11,9 @@ struct Pipe {
     void spawn(int sprite_index);
     void update();
 
-    bn::optional<bn::sprite_ptr> _sprite;
+    bn::optional<bn::sprite_ptr> _sprite_top;
+    bn::optional<bn::sprite_ptr> _sprite_bottom;
+
     bool _active = false;
 };
 } // namespace bb

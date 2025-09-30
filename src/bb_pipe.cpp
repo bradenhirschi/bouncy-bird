@@ -8,24 +8,29 @@ namespace bb {
 Pipe::Pipe() = default;
 
 void Pipe::spawn(int sprite_index) {
-    int spawn_y = ScreenBottomY - bn::sprite_items::pipe_sprites.shape_size().height() / 2;
-    _sprite = bn::sprite_items::pipe_sprites.create_sprite(ScreenRightX, spawn_y, sprite_index);
+    _sprite_top =
+        bn::sprite_items::pipe_sprites.create_sprite(ScreenRightX, ScreenTopY, sprite_index);
+    _sprite_bottom =
+        bn::sprite_items::pipe_sprites.create_sprite(ScreenRightX, ScreenBottomY, sprite_index);
 
     _active = true;
 }
 
 void Pipe::update() {
-    if (!_active || !_sprite) {
+    if (!_active || !_sprite_top || !_sprite_bottom) {
         return;
     }
 
-    if (_sprite->x() <= ScreenLeftX - _sprite->shape_size().width()) {
-        _sprite.reset();
+    // Check using _sprite_top but this shows both sprites are off screen
+    if (_sprite_top->x() <= ScreenLeftX - _sprite_top->shape_size().width()) {
+        _sprite_top.reset();
+        _sprite_bottom.reset();
         _active = false;
         return;
     }
 
-    _sprite->set_x(_sprite->x() - 1);
+    _sprite_top->set_x(_sprite_top->x() - 1);
+    _sprite_bottom->set_x(_sprite_bottom->x() - 1);
 }
 
 } // namespace bb

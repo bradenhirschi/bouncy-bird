@@ -27,8 +27,8 @@ MainState::~MainState() {}
 GameState *MainState::update() {
     if (!_game_over) {
 
-        // Spawn a pipe every 90 frames
-        if (_pipe_spawn_counter >= 90) {
+        // Spawn a pipe every 120 frames
+        if (_pipe_spawn_counter >= 120) {
             for (auto &pipe : _pipes) {
                 if (!pipe._active) {
                     int random_int = _random.get_unbiased_int(4);
@@ -46,7 +46,9 @@ GameState *MainState::update() {
         for (auto &pipe : _pipes) {
             pipe.update();
 
-            if (pipe._active && pipe._sprite->x() == -40) {
+            // We're checking just the pipe's top sprite but this shows the player passed top +
+            // bottom
+            if (pipe._active && pipe._sprite_top->x() == -40) {
                 _points++;
             }
 

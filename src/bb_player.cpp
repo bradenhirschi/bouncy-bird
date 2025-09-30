@@ -26,11 +26,16 @@ void Player::flap() {
 bool Player::collides_with_pipe(bb::Pipe &pipe) {
     bn::fixed_rect player_hitbox = bn::fixed_rect(
         _position.x(), _position.y(), _sprite.shape_size().width(), _sprite.shape_size().height());
-    bn::fixed_rect pipe_hitbox =
-        bn::fixed_rect(pipe._sprite->x(), pipe._sprite->y(), pipe._sprite->shape_size().width(),
-                       pipe._sprite->shape_size().height());
 
-    if (player_hitbox.intersects(pipe_hitbox)) {
+    bn::fixed_rect pipe_top_hitbox = bn::fixed_rect(pipe._sprite_top->x(), pipe._sprite_top->y(),
+                                                    pipe._sprite_top->shape_size().width(),
+                                                    pipe._sprite_top->shape_size().height());
+
+    bn::fixed_rect pipe_bottom_hitbox = bn::fixed_rect(
+        pipe._sprite_bottom->x(), pipe._sprite_bottom->y(),
+        pipe._sprite_bottom->shape_size().width(), pipe._sprite_bottom->shape_size().height());
+
+    if (player_hitbox.intersects(pipe_top_hitbox) || player_hitbox.intersects(pipe_bottom_hitbox)) {
         return true;
     }
     return false;
