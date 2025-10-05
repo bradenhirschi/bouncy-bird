@@ -10,7 +10,7 @@ int main() {
     bn::core::init();
 
     // Draw background which is the same for all game states
-    bn::regular_bg_ptr background = bn::regular_bg_items::background.create_bg(0, 0);
+    bn::regular_bg_ptr background = bn::regular_bg_items::background.create_bg(0, -48);
 
     // Initialize game state
     bn::unique_ptr<bb::GameState> current_state = bn::make_unique<bb::MainState>();

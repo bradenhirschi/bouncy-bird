@@ -38,7 +38,7 @@ class MainState : public GameState {
     // Text
     bn::optional<bn::sprite_font> _font;
     bn::optional<bn::sprite_text_generator> _text_generator;
-    bn::optional<bn::vector<bn::sprite_ptr, 32>> _game_over_text_sprite;
+    bn::vector<bn::sprite_ptr, 32> _text_sprites;
 };
 
 } // namespace bb

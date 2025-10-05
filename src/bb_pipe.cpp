@@ -9,9 +9,9 @@ Pipe::Pipe() = default;
 
 void Pipe::spawn(int sprite_index) {
     _sprite_top =
-        bn::sprite_items::pipe_sprites.create_sprite(ScreenRightX, ScreenTopY, sprite_index);
-    _sprite_bottom =
-        bn::sprite_items::pipe_sprites.create_sprite(ScreenRightX, ScreenBottomY, sprite_index);
+        bn::sprite_items::pipe_sprites.create_sprite(ScreenRightX, ScreenTopY + 10, sprite_index);
+    _sprite_bottom = bn::sprite_items::pipe_sprites.create_sprite(ScreenRightX, ScreenBottomY - 10,
+                                                                  sprite_index);
 
     _active = true;
 }

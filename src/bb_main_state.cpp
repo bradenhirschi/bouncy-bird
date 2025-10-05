@@ -70,15 +70,15 @@ GameState *MainState::update() {
 }
 
 void MainState::display_game_over_ui() {
-    bn::string msg = bn::string<32>("Game Over: ");
-    msg.append(bn::to_string<10>(_points));
-    msg.append(" Points");
-
-    bn::string_view text = bn::string_view(msg);
-
     _font = bn::sprite_font(bn::sprite_items::common_variable_8x16_font);
+
     _text_generator = bn::sprite_text_generator(_font.value());
-    _game_over_text_sprite = _text_generator->generate<32>(ScreenLeftX, 0, text);
+    _text_generator->set_center_alignment();
+
+    _text_generator->generate(0, 0, "Score", _text_sprites);
+    _text_generator->generate(0, 10, bn::to_string<10>(_points), _text_sprites);
+    _text_generator->generate(0, 20, "Best", _text_sprites);
+    _text_generator->generate(0, 30, bn::to_string<10>(_points), _text_sprites);
 }
 
 } // namespace bb
