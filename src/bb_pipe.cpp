@@ -7,11 +7,12 @@
 namespace bb {
 Pipe::Pipe() = default;
 
-void Pipe::spawn(int sprite_index) {
-    _sprite_top =
-        bn::sprite_items::pipe_sprites.create_sprite(ScreenRightX, ScreenTopY + 10, sprite_index);
-    _sprite_bottom = bn::sprite_items::pipe_sprites.create_sprite(ScreenRightX, ScreenBottomY - 10,
-                                                                  sprite_index);
+void Pipe::spawn(int sprite_index, int y_offset) {
+
+    _sprite_top = bn::sprite_items::pipe_sprites.create_sprite(
+        ScreenRightX, ScreenTopY + 10 + y_offset, sprite_index);
+    _sprite_bottom = bn::sprite_items::pipe_sprites.create_sprite(
+        ScreenRightX, ScreenBottomY - 10 + y_offset, sprite_index);
 
     _active = true;
 }

@@ -8,7 +8,7 @@ struct Pipe {
   public:
     Pipe();
 
-    void spawn(int sprite_index);
+    void spawn(int sprite_index, int y_offset);
     void update();
 
     bn::optional<bn::sprite_ptr> _sprite_top;

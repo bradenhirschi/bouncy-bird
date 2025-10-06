@@ -1,5 +1,4 @@
-#include "bb_constants.h"
-#include "bb_game_state.h"
+#include "bn_core.h"
 #include "bn_keypad.h"
 #include "bn_random.h"
 #include "bn_sprite_font.h"
@@ -8,6 +7,7 @@
 #include "bn_sprite_ptr.h"
 #include "bn_sprite_text_generator.h"
 
+#include "bb_game_state.h"
 #include "bb_main_state.h"
 #include "bb_pipe.h"
 #include "bb_player.h"
@@ -20,6 +20,12 @@ MainState::MainState() {
     // Set up player
     bn::sprite_ptr player_sprite = bn::sprite_items::player_sprite.create_sprite(-40, 0);
     _player = bb::Player(player_sprite);
+
+    // Advance the random number generator to fake non-deterministic randomness
+    int frames = bn::core::current_cpu_ticks(); // Something pretty random
+    for (int i = 0; i < frames % 100; ++i) {
+        _random.update(); // Update _random's current internal state
+    }
 }
 
 MainState::~MainState() {}
@@ -31,9 +37,10 @@ GameState *MainState::update() {
         if (_pipe_spawn_counter >= 120) {
             for (auto &pipe : _pipes) {
                 if (!pipe._active) {
-                    int random_int = _random.get_unbiased_int(4);
+                    int random_int_for_color = _random.get_unbiased_int(4);
+                    int random_int_for_y_offset = _random.get_unbiased_int(-6, 6) * 5;
 
-                    pipe.spawn(random_int);
+                    pipe.spawn(random_int_for_color, random_int_for_y_offset);
                     pipe._active = true;
                     _pipe_spawn_counter = 0;
                     break;
