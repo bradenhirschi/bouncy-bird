@@ -1,12 +1,16 @@
-#include "bb_constants.h"
-#include "bb_hitbox.h"
 #include "bn_fixed_rect.h"
 #include "bn_fixed_rect_fwd.h"
 #include "bn_keypad.h"
+#include "bn_sprite_item.h"
 #include "bn_sprite_ptr.h"
 #include "bn_sprite_shape_size.h"
 
+#include "bb_constants.h"
+#include "bb_hitbox.h"
 #include "bb_player.h"
+#include "bn_sprite_animate_actions.h"
+#include "bn_sprite_items_bird_sprites.h"
+#include "bn_sprite_tiles_ptr.h"
 
 namespace bb {
 
@@ -14,17 +18,21 @@ const bn::fixed gravity = 0.2;
 const bn::fixed flap_strength = 4;
 const bn::fixed max_delta_y = 3;
 
-Player::Player(bn::sprite_ptr sprite) : _sprite(sprite), _position(sprite.position()) {}
+Player::Player(bn::sprite_ptr sprite) : _position(sprite.position()), _sprite(sprite) {}
 
 void Player::flap() {
     // Set delta y to -flap strength instead of just subtracting it
     // This lets the jump height always be the same regardless of current
     // downward velocity
     _delta_y = -flap_strength;
+
+    // Play a new flap animation
+    _flap_animation = bn::create_sprite_animate_action_once(
+        _sprite, 10, bn::sprite_items::bird_sprites.tiles_item(), 0, 1, 2, 3, 1, 0);
 };
 
 bool Player::collides_with_pipe(bb::Pipe &pipe) {
-    bn::fixed_rect player_hitbox = bn::fixed_rect(_position.x(), _position.y(), 24, 24);
+    bn::fixed_rect player_hitbox = bn::fixed_rect(_position.x(), _position.y(), 16, 14);
 
     bn::fixed_rect pipe_top_hitbox = bn::fixed_rect(pipe._sprite_top->x(), pipe._sprite_top->y(),
                                                     pipe._sprite_top->shape_size().width(),
@@ -69,6 +77,16 @@ void Player::update_position() {
 
     // Update actual sprite position based on calculated deltas
     _sprite.set_y(_position.y());
+
+    // Update flap animation if it's active
+    if (_flap_animation) {
+        _flap_animation->update();
+
+        // Once finished, clear it
+        if (_flap_animation->done()) {
+            _flap_animation.reset();
+        }
+    }
 };
 
 } // namespace bb

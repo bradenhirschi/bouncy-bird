@@ -1,9 +1,10 @@
+#include "bb_constants.h"
 #include "bn_core.h"
 #include "bn_keypad.h"
 #include "bn_random.h"
 #include "bn_sprite_font.h"
+#include "bn_sprite_items_bird_sprites.h"
 #include "bn_sprite_items_common_variable_8x16_font.h"
-#include "bn_sprite_items_player_sprite.h"
 #include "bn_sprite_ptr.h"
 #include "bn_sprite_text_generator.h"
 
@@ -18,7 +19,7 @@ namespace bb {
 
 MainState::MainState() {
     // Set up player
-    bn::sprite_ptr player_sprite = bn::sprite_items::player_sprite.create_sprite(-40, 0);
+    bn::sprite_ptr player_sprite = bn::sprite_items::bird_sprites.create_sprite(-40, 0, 0);
     _player = bb::Player(player_sprite);
 
     // Advance the random number generator to fake non-deterministic randomness
@@ -33,8 +34,11 @@ MainState::~MainState() {}
 GameState *MainState::update() {
     if (!_game_over) {
 
+        // // Spawn ground background tiles every frame
+        ground_manager.update();
+
         // Spawn a pipe every 120 frames
-        if (_pipe_spawn_counter >= 120) {
+        if (_pipe_spawn_counter == 120) {
             for (auto &pipe : _pipes) {
                 if (!pipe._active) {
                     int random_int_for_color = _random.get_unbiased_int(4);
@@ -59,10 +63,17 @@ GameState *MainState::update() {
                 _points++;
             }
 
+            // Game over if player collides with pipe
             if (pipe._active && _player->collides_with_pipe(pipe)) {
                 _game_over = true;
                 display_game_over_ui();
             }
+        }
+
+        // Game over if player touches ground
+        if (_player->_position.y() > ScreenBottomY - 32) {
+            _game_over = true;
+            display_game_over_ui();
         }
 
         // Update player

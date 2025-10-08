@@ -11,8 +11,11 @@ void Pipe::spawn(int sprite_index, int y_offset) {
 
     _sprite_top = bn::sprite_items::pipe_sprites.create_sprite(
         ScreenRightX, ScreenTopY + 10 + y_offset, sprite_index);
+    _sprite_top->set_z_order(1);
+
     _sprite_bottom = bn::sprite_items::pipe_sprites.create_sprite(
-        ScreenRightX, ScreenBottomY - 10 + y_offset, sprite_index);
+        ScreenRightX, ScreenBottomY - 26 + y_offset, sprite_index);
+    _sprite_bottom->set_z_order(1);
 
     _active = true;
 }

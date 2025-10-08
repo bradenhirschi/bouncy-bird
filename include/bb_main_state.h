@@ -1,6 +1,7 @@
 #pragma once
 
 #include "bb_game_state.h"
+#include "bb_ground_manager.h"
 #include "bn_random.h"
 #include "bn_sprite_font.h"
 #include "bn_sprite_ptr.h"
@@ -21,15 +22,16 @@ class MainState : public GameState {
     void display_game_over_ui();
 
   private:
+    // Helper
+    bn::random _random = bn::random();
+
     // Player
     bn::optional<bb::Player> _player;
 
     // Obstacles and backgrounds
     bn::array<bb::Pipe, 6> _pipes;
     int _pipe_spawn_counter = 0;
-
-    // Helper
-    bn::random _random = bn::random();
+    bb::GroundManager ground_manager = bb::GroundManager(_random);
 
     // Game logic
     int _points = 0;
