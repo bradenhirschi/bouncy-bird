@@ -12,10 +12,16 @@
 #include "bb_main_state.h"
 #include "bb_pipe.h"
 #include "bb_player.h"
+#include "bn_sram.h"
 #include "bn_string.h"
 #include "bn_string_view.h"
 
 namespace bb {
+
+struct SaveData {
+    int high_score = 0;
+    int last_score = 0;
+};
 
 MainState::MainState() {
     // Set up player
@@ -27,16 +33,25 @@ MainState::MainState() {
     for (int i = 0; i < frames % 100; ++i) {
         _random.update(); // Update _random's current internal state
     }
+
+    // Read high score from sram
+    SaveData data;
+    bn::sram::read(data);
+
+    _high_score = data.high_score;
+    _last_score = data.last_score;
+
+    // Display menu ui when the game starts
+    display_menu_ui();
 }
 
 MainState::~MainState() {}
 
 GameState *MainState::update() {
-    if (!_game_over) {
+    // // Spawn ground background tiles every frame
+    ground_manager.update();
 
-        // // Spawn ground background tiles every frame
-        ground_manager.update();
-
+    if (_game_started) {
         // Spawn a pipe every 120 frames
         if (_pipe_spawn_counter == 120) {
             for (auto &pipe : _pipes) {
@@ -65,38 +80,53 @@ GameState *MainState::update() {
 
             // Game over if player collides with pipe
             if (pipe._active && _player->collides_with_pipe(pipe)) {
-                _game_over = true;
-                display_game_over_ui();
+                // Write save data
+                SaveData data;
+                data.last_score = _points;
+                data.high_score = _points > _high_score ? _points : _high_score;
+                bn::sram::write(data);
+
+                // Restart game
+                return new MainState();
             }
         }
 
         // Game over if player touches ground
-        if (_player->_position.y() > ScreenBottomY - 32) {
-            _game_over = true;
-            display_game_over_ui();
+        if (_player->_position.y() > ScreenBottomY - 16) {
+            // Write save data
+            SaveData data;
+            data.last_score = _points;
+            data.high_score = _points > _high_score ? _points : _high_score;
+            bn::sram::write(data);
+
+            // Restart game
+            return new MainState();
         }
 
         // Update player
         _player->update_position();
     } else {
         if (bn::keypad::start_pressed()) {
-            return new MainState();
+            _game_started = true;
+            clear_menu_ui();
         }
     }
 
     return nullptr;
 }
 
-void MainState::display_game_over_ui() {
+void MainState::display_menu_ui() {
     _font = bn::sprite_font(bn::sprite_items::common_variable_8x16_font);
 
     _text_generator = bn::sprite_text_generator(_font.value());
     _text_generator->set_center_alignment();
 
-    _text_generator->generate(0, 0, "Score", _text_sprites);
-    _text_generator->generate(0, 10, bn::to_string<10>(_points), _text_sprites);
-    _text_generator->generate(0, 20, "Best", _text_sprites);
-    _text_generator->generate(0, 30, bn::to_string<10>(_points), _text_sprites);
+    _text_generator->generate(0, -20, "Last Score", _text_sprites);
+    _text_generator->generate(0, -10, bn::to_string<10>(_last_score), _text_sprites);
+    _text_generator->generate(0, 0, "High Score", _text_sprites);
+    _text_generator->generate(0, 10, bn::to_string<10>(_high_score), _text_sprites);
 }
+
+void MainState::clear_menu_ui() { _text_sprites.clear(); }
 
 } // namespace bb

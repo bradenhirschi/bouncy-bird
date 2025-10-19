@@ -1,10 +1,10 @@
+#include "bb_main_state.h"
 #include "bn_core.h"
 #include "bn_regular_bg_items_background.h"
 #include "bn_regular_bg_ptr.h"
 #include "bn_unique_ptr.h"
 
 #include "bb_game_state.h"
-#include "bb_main_state.h"
 
 int main() {
     bn::core::init();

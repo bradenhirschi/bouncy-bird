@@ -5,6 +5,7 @@
 #include "bn_random.h"
 #include "bn_sprite_font.h"
 #include "bn_sprite_ptr.h"
+#include "bn_sram.h"
 
 #include "bb_pipe.h"
 #include "bb_player.h"
@@ -19,7 +20,8 @@ class MainState : public GameState {
     ~MainState() override;
 
     GameState *update() override;
-    void display_game_over_ui();
+    void display_menu_ui();
+    void clear_menu_ui();
 
   private:
     // Helper
@@ -35,7 +37,9 @@ class MainState : public GameState {
 
     // Game logic
     int _points = 0;
-    bool _game_over = false;
+    int _last_score = 0;
+    int _high_score = 0;
+    bool _game_started = false;
 
     // Text
     bn::optional<bn::sprite_font> _font;
