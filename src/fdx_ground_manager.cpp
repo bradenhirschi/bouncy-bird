@@ -1,9 +1,9 @@
-#include "bb_constants.h"
+#include "fdx_constants.h"
 #include "bn_sprite_items_ground_sprites.h"
 
-#include "bb_ground_manager.h"
+#include "fdx_ground_manager.h"
 
-namespace bb {
+namespace fdx {
 
 GroundManager::GroundManager(bn::random _random) {
     int x = ScreenLeftX;
@@ -26,4 +26,4 @@ void GroundManager::update() {
         }
     }
 };
-} // namespace bb
+} // namespace fdx

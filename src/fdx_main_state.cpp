@@ -1,4 +1,4 @@
-#include "bb_constants.h"
+#include "fdx_constants.h"
 #include "bn_core.h"
 #include "bn_keypad.h"
 #include "bn_random.h"
@@ -8,15 +8,15 @@
 #include "bn_sprite_ptr.h"
 #include "bn_sprite_text_generator.h"
 
-#include "bb_game_state.h"
-#include "bb_main_state.h"
-#include "bb_pipe.h"
-#include "bb_player.h"
+#include "fdx_game_state.h"
+#include "fdx_main_state.h"
+#include "fdx_pipe.h"
+#include "fdx_player.h"
 #include "bn_sram.h"
 #include "bn_string.h"
 #include "bn_string_view.h"
 
-namespace bb {
+namespace fdx {
 
 struct SaveData {
     int high_score = 0;
@@ -26,7 +26,7 @@ struct SaveData {
 MainState::MainState() {
     // Set up player
     bn::sprite_ptr player_sprite = bn::sprite_items::bird_sprites.create_sprite(-40, 0, 0);
-    _player = bb::Player(player_sprite);
+    _player = fdx::Player(player_sprite);
 
     // Advance the random number generator to fake non-deterministic randomness
     int frames = bn::core::current_cpu_ticks(); // Something pretty random
@@ -129,4 +129,4 @@ void MainState::display_menu_ui() {
 
 void MainState::clear_menu_ui() { _text_sprites.clear(); }
 
-} // namespace bb
+} // namespace fdx

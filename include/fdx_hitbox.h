@@ -3,7 +3,7 @@
 #include "bn_fixed.h"
 #include "bn_fixed_point.h"
 
-namespace bb {
+namespace fdx {
 
 class Hitbox {
   private:
@@ -26,4 +26,4 @@ class Hitbox {
     void set_width(bn::fixed width);
     void set_height(bn::fixed height);
 };
-} // namespace bb
+} // namespace fdx

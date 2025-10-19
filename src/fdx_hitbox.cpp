@@ -1,8 +1,8 @@
 #include "bn_fixed.h"
 
-#include "bb_hitbox.h"
+#include "fdx_hitbox.h"
 
-namespace bb {
+namespace fdx {
 
 Hitbox::Hitbox(bn::fixed x, bn::fixed y, bn::fixed width, bn::fixed height)
     : _pos(x, y), _width(width), _height(height) {}
@@ -25,4 +25,4 @@ void Hitbox::set_width(bn::fixed width) { _width = width; }
 
 void Hitbox::set_height(bn::fixed height) { _height = height; }
 
-} // namespace bb
+} // namespace fdx

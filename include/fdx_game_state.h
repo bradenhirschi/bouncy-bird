@@ -1,6 +1,6 @@
 #pragma once
 
-namespace bb {
+namespace fdx {
 
 class GameState {
   public:
@@ -12,4 +12,4 @@ class GameState {
   private:
 };
 
-} // namespace bb
+} // namespace fdx

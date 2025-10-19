@@ -10,4 +10,4 @@ if [ $? -ne 0 ]; then
 fi
 
 # run rom in emulator
-/usr/bin/flatpak run --branch=stable --arch=aarch64 --command=visualboyadvance-m --file-forwarding com.vba_m.visualboyadvance-m bouncy-bird.gba
+/usr/bin/flatpak run --branch=stable --arch=aarch64 --command=visualboyadvance-m --file-forwarding com.vba_m.visualboyadvance-m flap-dx.gba

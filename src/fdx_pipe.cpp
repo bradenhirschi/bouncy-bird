@@ -1,10 +1,10 @@
 #include "bn_sprite_items_pipe_sprites.h"
 #include "bn_sprite_ptr.h"
 
-#include "bb_constants.h"
-#include "bb_pipe.h"
+#include "fdx_constants.h"
+#include "fdx_pipe.h"
 
-namespace bb {
+namespace fdx {
 Pipe::Pipe() = default;
 
 void Pipe::spawn(int sprite_index, int y_offset) {
@@ -37,4 +37,4 @@ void Pipe::update() {
     _sprite_bottom->set_x(_sprite_bottom->x() - 1);
 }
 
-} // namespace bb
+} // namespace fdx

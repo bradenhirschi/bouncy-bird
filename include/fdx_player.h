@@ -1,11 +1,11 @@
 #pragma once
 
-#include "bb_pipe.h"
+#include "fdx_pipe.h"
 #include "bn_fixed_point_fwd.h"
 #include "bn_sprite_animate_actions.h"
 #include "bn_sprite_ptr.h"
 
-namespace bb {
+namespace fdx {
 
 class Player {
   public:
@@ -13,7 +13,7 @@ class Player {
 
     void flap();
     void update_position();
-    bool collides_with_pipe(bb::Pipe &pipe);
+    bool collides_with_pipe(fdx::Pipe &pipe);
 
     bn::fixed_point _position;
 
@@ -27,4 +27,4 @@ class Player {
     bn::optional<bn::sprite_animate_action<6>> _flap_animation;
 };
 
-} // namespace bb
+} // namespace fdx

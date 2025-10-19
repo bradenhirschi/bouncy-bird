@@ -51,11 +51,11 @@
       "-fuse-cxa-atexit",
       "-c",
       "-o",
-      "bb_main_state.o",
-      "/home/braden/Developer/personal/bouncy-bird/src/bb_main_state.cpp"
+      "fdx_main_state.o",
+      "/home/braden/Developer/personal/bouncy-bird/src/fdx_main_state.cpp"
     ],
     "directory": "/home/braden/Developer/personal/bouncy-bird/build",
-    "file": "/home/braden/Developer/personal/bouncy-bird/src/bb_main_state.cpp",
-    "output": "/home/braden/Developer/personal/bouncy-bird/build/bb_main_state.o"
+    "file": "/home/braden/Developer/personal/bouncy-bird/src/fdx_main_state.cpp",
+    "output": "/home/braden/Developer/personal/bouncy-bird/build/fdx_main_state.o"
   }
 ]

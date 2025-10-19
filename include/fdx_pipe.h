@@ -3,7 +3,7 @@
 #include "bn_optional.h"
 #include "bn_sprite_ptr.h"
 
-namespace bb {
+namespace fdx {
 struct Pipe {
   public:
     Pipe();
@@ -16,4 +16,4 @@ struct Pipe {
 
     bool _active = false;
 };
-} // namespace bb
+} // namespace fdx

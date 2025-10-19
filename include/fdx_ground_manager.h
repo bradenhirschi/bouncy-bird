@@ -1,12 +1,12 @@
 #pragma once
 
-#include "bb_constants.h"
+#include "fdx_constants.h"
 #include "bn_random.h"
 #include "bn_sprite_item.h"
 #include "bn_sprite_ptr.h"
 #include "bn_vector.h"
 
-namespace bb {
+namespace fdx {
 class GroundManager {
   public:
     GroundManager(bn::random _random);
@@ -23,4 +23,4 @@ class GroundManager {
     bn::vector<bn::sprite_ptr, tile_count> _tiles;
     bn::random _random;
 };
-} // namespace bb
+} // namespace fdx

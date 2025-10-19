@@ -1,18 +1,18 @@
 #pragma once
 
-#include "bb_game_state.h"
-#include "bb_ground_manager.h"
+#include "fdx_game_state.h"
+#include "fdx_ground_manager.h"
 #include "bn_random.h"
 #include "bn_sprite_font.h"
 #include "bn_sprite_ptr.h"
 #include "bn_sram.h"
 
-#include "bb_pipe.h"
-#include "bb_player.h"
+#include "fdx_pipe.h"
+#include "fdx_player.h"
 #include "bn_sprite_text_generator.h"
 #include "bn_vector.h"
 
-namespace bb {
+namespace fdx {
 
 class MainState : public GameState {
   public:
@@ -28,12 +28,12 @@ class MainState : public GameState {
     bn::random _random = bn::random();
 
     // Player
-    bn::optional<bb::Player> _player;
+    bn::optional<fdx::Player> _player;
 
     // Obstacles and backgrounds
-    bn::array<bb::Pipe, 6> _pipes;
+    bn::array<fdx::Pipe, 6> _pipes;
     int _pipe_spawn_counter = 0;
-    bb::GroundManager ground_manager = bb::GroundManager(_random);
+    fdx::GroundManager ground_manager = fdx::GroundManager(_random);
 
     // Game logic
     int _points = 0;
@@ -47,4 +47,4 @@ class MainState : public GameState {
     bn::vector<bn::sprite_ptr, 32> _text_sprites;
 };
 
-} // namespace bb
+} // namespace fdx
