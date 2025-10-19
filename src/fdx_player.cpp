@@ -5,16 +5,14 @@
 #include "bn_sprite_ptr.h"
 #include "bn_sprite_shape_size.h"
 
-#include "fdx_constants.h"
-#include "fdx_hitbox.h"
-#include "fdx_player.h"
 #include "bn_sprite_animate_actions.h"
 #include "bn_sprite_items_bird_sprites.h"
-#include "bn_sprite_tiles_ptr.h"
+#include "fdx_constants.h"
+#include "fdx_player.h"
 
 namespace fdx {
 
-const bn::fixed gravity = 0.2;
+const bn::fixed gravity = 0.225;
 const bn::fixed flap_strength = 4;
 const bn::fixed max_delta_y = 3;
 
@@ -34,17 +32,15 @@ void Player::flap() {
 bool Player::collides_with_pipe(fdx::Pipe &pipe) {
     bn::fixed_rect player_hitbox = bn::fixed_rect(_position.x(), _position.y(), 16, 14);
 
-    bn::fixed_rect pipe_top_hitbox = bn::fixed_rect(pipe._sprite_top->x(), pipe._sprite_top->y(),
-                                                    pipe._sprite_top->shape_size().width(),
-                                                    pipe._sprite_top->shape_size().height());
+    for (bn::sprite_ptr &sprite : pipe._sprites) {
+        bn::fixed_rect pipe_sprite_hitbox = bn::fixed_rect(
+            sprite.x(), sprite.y(), sprite.shape_size().width(), sprite.shape_size().height());
 
-    bn::fixed_rect pipe_bottom_hitbox = bn::fixed_rect(
-        pipe._sprite_bottom->x(), pipe._sprite_bottom->y(),
-        pipe._sprite_bottom->shape_size().width(), pipe._sprite_bottom->shape_size().height());
-
-    if (player_hitbox.intersects(pipe_top_hitbox) || player_hitbox.intersects(pipe_bottom_hitbox)) {
-        return true;
+        if (player_hitbox.intersects(pipe_sprite_hitbox)) {
+            return true;
+        }
     }
+
     return false;
 };
 

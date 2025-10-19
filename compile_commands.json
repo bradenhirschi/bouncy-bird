@@ -35,12 +35,12 @@
       "-D__GBA__",
       "-DBN_DMG_AUDIO_BACKEND_DEFAULT",
       "-iquote",
-      "/home/braden/Developer/personal/bouncy-bird/include",
+      "/home/braden/Developer/personal/flap-dx/include",
       "-I/opt/butano/butano/include",
       "-I/opt/butano/butano/hw/3rd_party/libtonc/include",
       "-I/opt/butano/butano/hw/3rd_party/libugba/include",
       "-I/opt/butano/butano/hw/3rd_party/maxmod/include",
-      "-I/home/braden/Developer/personal/bouncy-bird/build",
+      "-I/home/braden/Developer/personal/flap-dx/build",
       "-Wuseless-cast",
       "-Wnon-virtual-dtor",
       "-Woverloaded-virtual",
@@ -51,11 +51,11 @@
       "-fuse-cxa-atexit",
       "-c",
       "-o",
-      "fdx_main_state.o",
-      "/home/braden/Developer/personal/bouncy-bird/src/fdx_main_state.cpp"
+      "fdx_player.o",
+      "/home/braden/Developer/personal/flap-dx/src/fdx_player.cpp"
     ],
-    "directory": "/home/braden/Developer/personal/bouncy-bird/build",
-    "file": "/home/braden/Developer/personal/bouncy-bird/src/fdx_main_state.cpp",
-    "output": "/home/braden/Developer/personal/bouncy-bird/build/fdx_main_state.o"
+    "directory": "/home/braden/Developer/personal/flap-dx/build",
+    "file": "/home/braden/Developer/personal/flap-dx/src/fdx_player.cpp",
+    "output": "/home/braden/Developer/personal/flap-dx/build/fdx_player.o"
   }
 ]

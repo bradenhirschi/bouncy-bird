@@ -1,4 +1,3 @@
-#include "fdx_constants.h"
 #include "bn_core.h"
 #include "bn_keypad.h"
 #include "bn_random.h"
@@ -7,14 +6,15 @@
 #include "bn_sprite_items_common_variable_8x16_font.h"
 #include "bn_sprite_ptr.h"
 #include "bn_sprite_text_generator.h"
+#include "fdx_constants.h"
 
+#include "bn_sram.h"
+#include "bn_string.h"
+#include "bn_string_view.h"
 #include "fdx_game_state.h"
 #include "fdx_main_state.h"
 #include "fdx_pipe.h"
 #include "fdx_player.h"
-#include "bn_sram.h"
-#include "bn_string.h"
-#include "bn_string_view.h"
 
 namespace fdx {
 
@@ -74,7 +74,7 @@ GameState *MainState::update() {
 
             // We're checking just the pipe's top sprite but this shows the player passed top +
             // bottom
-            if (pipe._active && pipe._sprite_top->x() == -40) {
+            if (pipe._active && pipe._sprites[0].x() == -40) {
                 _points++;
             }
 

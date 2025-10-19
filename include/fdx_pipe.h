@@ -1,7 +1,7 @@
 #pragma once
 
-#include "bn_optional.h"
 #include "bn_sprite_ptr.h"
+#include "bn_vector.h"
 
 namespace fdx {
 struct Pipe {
@@ -11,8 +11,7 @@ struct Pipe {
     void spawn(int sprite_index, int y_offset);
     void update();
 
-    bn::optional<bn::sprite_ptr> _sprite_top;
-    bn::optional<bn::sprite_ptr> _sprite_bottom;
+    bn::vector<bn::sprite_ptr, 4> _sprites;
 
     bool _active = false;
 };
