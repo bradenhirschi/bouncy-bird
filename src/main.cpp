@@ -1,10 +1,10 @@
-#include "fdx_main_state.h"
 #include "bn_core.h"
 #include "bn_regular_bg_items_background.h"
 #include "bn_regular_bg_ptr.h"
 #include "bn_unique_ptr.h"
 
 #include "fdx_game_state.h"
+#include "fdx_main_state.h"
 
 int main() {
     bn::core::init();
@@ -13,6 +13,7 @@ int main() {
     bn::regular_bg_ptr background = bn::regular_bg_items::background.create_bg(0, -48);
 
     // Initialize game state
+
     bn::unique_ptr<fdx::GameState> current_state = bn::make_unique<fdx::MainState>();
 
     while (true) {
